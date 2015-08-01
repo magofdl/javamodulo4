@@ -3,33 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-     
+
     <h:head>
-        <title>ERP-CEC Ingreso a la aplicación</title>
+        <title>Menú sistema</title>
         <h:outputStylesheet library="css" name="usrapp.css" />
         <h:outputScript library="js" name="usrappjavascript.js"/>
     </h:head>
     <h:body>
         <h:form id="formlogin">
             <h:panelGrid id="panelGridLogin" columns="2">
-                 <!-- componente que permiste organizar elementos en pantalla se renderiza como table -->
-                 <f:facet name="header">
-                      <h:outputLabel value="Ingreso al sistema" />
-                 </f:facet>
-                 
-                 <h:outputLabel value="Usuario:" for="txt_nombre_usuario"/>
-                 <h:inputText id="txt_nombre_usuario" maxlength="10" value="#{loginBean.txt_nombre_usuario}"/>
-                 <h:outputLabel value="Clave:" for="txt_clave_usuario" value="#{loginBean.txt_clave_usuario}"/>
-                 <h:inputSecret id="txt_clave_usuario" maxlength="10"/>
-                     
-                   <f:facet name="footer">
-                         <h:outputLabel value="Este sistema funciona en Mozilla 39 superior. Resolución 1024x768" />
-                 </f:facet>
-                 
+                <!-- componente que permiste organizar elementos en pantalla se renderiza como table -->
+                <f:facet name="header">
+                    <h:outputLabel value="Menú" />
+                </f:facet>
+
+
+                <h:outputLabel value="Usuario"/>
+                <h:commandLink>
+                    <h:graphicImage library="img" name="ico_usuario36.png"/>
+                </h:commandLink>
+
+
+                <h:outputLabel value="Salir"/>
+                <h:commandLink>
+                    <h:graphicImage library="img" name="ico_salir.png"/>
+                </h:commandLink>
+
+
+                <f:facet name="footer">
+                    <h:outputLabel value="Este sistema funciona en Mozilla 39 superior. Resolución 1024x768" />
+                </f:facet>
+
             </h:panelGrid>
-             <h:panelGrid  columns="1">
-                 <h:commandButton value="Ingresar" action="#{loginBean.validarUsuario()}"/>
-             </h:panelGrid>
+            <h:panelGrid  columns="1">
+                <h:outputLink value="http://www.google.com">
+                    Ir a google
+                </h:outputLink>
+            </h:panelGrid>
         </h:form>
     </h:body>
 </html>
