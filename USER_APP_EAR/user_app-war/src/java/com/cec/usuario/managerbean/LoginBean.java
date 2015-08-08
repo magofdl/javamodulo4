@@ -10,8 +10,10 @@ import com.cec.usuario.negocio.UsuarioFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 
 
@@ -74,21 +76,29 @@ public class LoginBean {
    //metodo para validar usuario
     public String validarUsuario(){
         // return null significa que se queda en el misma página
-        
-        if (this.getTxt_nombre_usuario().equals("fdruan")) {
-            
+         Logger.getLogger(LoginBean.class.getName()).log(Level.INFO, null, "validarUsuario");
             try {
                 ErpUsuario erpUsuario=adminUsuario.validarUsuario(txt_nombre_usuario, txt_clave_usuario);
+                if (erpUsuario!=null) {
+                    Logger.getLogger(LoginBean.class.getName()).log(Level.INFO, null, erpUsuario.getUsuApellido());
+                }
                 return "principal";
             } catch (Exception ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
-                //mensjae a pantalla
+                //pasos para emitir mensaje a  pantalla
+                //0 Crear componente de pantalla
+                //1 crear mensaje
+                FacesMessage facesMessage = new FacesMessage();
+                //2 crear severity
+                facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
+                //3 setear el mensaje
+                facesMessage.setSummary("Credenciales incorrectas");
+                //4 cargar a pantalla
+                //FacesContext conoce todo el conextsto jsf
+                FacesContext.getCurrentInstance().addMessage("resultadoLogin", facesMessage);
+                //5
                  return null;
             }
-        }
-        else{
-             return null;
-        }
     }
     
     

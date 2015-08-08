@@ -11,22 +11,19 @@
     </h:head>
     <h:body>
         <h:form id="formlogin">
-            <h:panelGrid id="panelGridLogin" columns="2">
-                <!-- componente que permiste organizar elementos en pantalla se renderiza como table -->
+            <!-- componente que permiste organizar elementos en pantalla se renderiza como table. Nota los comentarios deben estar fuera del panel grid porque les toma como columna -->
+            <h:panelGrid id="panelGridLogin" columns="2" border="1" cellpadding="0" cellspacing="2">
                 <f:facet name="header">
                     <h:outputLabel value="Menú" />
                 </f:facet>
-
-
                 <h:outputLabel value="Usuario"/>
-                <h:commandLink>
-                    <h:graphicImage library="img" name="ico_usuario36.png"/>
+                <h:commandLink action="crudUsuario">
+                    <h:graphicImage library="img" name="ico_usuario36x36.png"/>
                 </h:commandLink>
 
-
                 <h:outputLabel value="Salir"/>
-                <h:commandLink>
-                    <h:graphicImage library="img" name="ico_salir.png"/>
+                <h:commandLink actionListener="cerrarSesion">
+                    <h:graphicImage library="img" name="ico_salir36x36.png"/>
                 </h:commandLink>
                 
             </h:panelGrid>
