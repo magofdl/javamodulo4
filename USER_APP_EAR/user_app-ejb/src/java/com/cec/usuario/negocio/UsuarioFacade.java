@@ -89,5 +89,4 @@ public class UsuarioFacade {
         List<ErpUsuario> todosUsuarios=typedQuery.getResultList();
         return todosUsuarios;
     }
-    
 }
