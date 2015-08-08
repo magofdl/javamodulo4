@@ -6,12 +6,22 @@
 package com.cec.usuario.negocio;
 
 import com.cec.usuario.modelo.ErpUsuario;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * Clase para administrar las operaciones de usuario
  * @author FDL
  */
+
+@Stateless
 public class UsuarioFacade {
+    
+    //llamar al administrador de persistencia
+    @PersistenceContext(unitName = "user_app-ejbPU")
+    private EntityManager manejador;
     
     /**
      * Método para validar el usuario
@@ -21,7 +31,14 @@ public class UsuarioFacade {
      * @throws Exception 
      */
     public ErpUsuario validarUsuario(String nombreUsuario, String claveUsuario) throws Exception{
-        return null;
+        
+        Query query;
+        query = manejador.createQuery("SELECT usu  FROM ErpUsuario usu where usu.usu_usuario :param_usuario AND usu.usu_clav :param_clave");
+        
+        query.setParameter("param_usuario",nombreUsuario );
+        query.setParameter("param_clave",claveUsuario );
+        ErpUsuario erpUsuario=(ErpUsuario) query.getSingleResult();
+        return erpUsuario;
     }
     
     /**
