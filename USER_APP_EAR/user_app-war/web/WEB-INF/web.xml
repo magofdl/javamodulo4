@@ -12,6 +12,7 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
+         <url-pattern>*.fdl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -21,7 +22,7 @@
     </session-config>
     <!-- configuracion de pagina de bienvenida -->
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     
     <!-- configuracion de pagina de errores -->

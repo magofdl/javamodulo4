@@ -5,6 +5,11 @@
  */
 package com.cec.usuario.managerbean;
 
+import com.cec.usuario.modelo.ErpUsuario;
+import com.cec.usuario.negocio.UsuarioFacade;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -24,6 +29,10 @@ public class LoginBean {
     private String txt_nombre_usuario;
     private String txt_clave_usuario;
 
+    //administrar negocio
+    @EJB
+    private UsuarioFacade adminUsuario;
+    
     public LoginBean() {
     }
 
@@ -67,7 +76,15 @@ public class LoginBean {
         // return null significa que se queda en el misma página
         
         if (this.getTxt_nombre_usuario().equals("fdruan")) {
-            return "principal";
+            
+            try {
+                ErpUsuario erpUsuario=adminUsuario.validarUsuario(txt_nombre_usuario, txt_clave_usuario);
+                return "principal";
+            } catch (Exception ex) {
+                Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
+                //mensjae a pantalla
+                 return null;
+            }
         }
         else{
              return null;

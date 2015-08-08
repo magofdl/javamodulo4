@@ -10,27 +10,29 @@
         <h:outputScript library="js" name="usrappjavascript.js"/>
     </h:head>
     <h:body>
-        <h:form id="formlogin">
-            <h:panelGrid id="panelGridLogin" columns="2">
-                 <!-- componente que permiste organizar elementos en pantalla se renderiza como table -->
-                 <f:facet name="header">
-                      <h:outputLabel value="Ingreso al sistema" />
-                 </f:facet>
-                 
-                 <h:outputLabel value="Usuario:" for="txt_nombre_usuario"/>
-                 <h:inputText id="txt_nombre_usuario" maxlength="10" value="#{loginBean.txt_nombre_usuario}"/>
-                 <h:outputLabel value="Clave:" for="txt_clave_usuario" value="#{loginBean.txt_clave_usuario}"/>
-                 <h:inputSecret id="txt_clave_usuario" maxlength="10"/>
-                     
-                   <f:facet name="footer">
-                         <h:outputLabel value="Este sistema funciona en Mozilla 39 superior. Resolución 1024x768" />
-                 </f:facet>
-                 
-            </h:panelGrid>
-             <h:panelGrid  columns="1">
-                 <h:commandButton value="Ingresar" action="#{loginBean.validarUsuario}"/>
-             </h:panelGrid>
-        </h:form>
+        <center>
+            <h:form id="formlogin">
+                <h:panelGrid id="panelGridLogin" columns="2" border="1">
+                     <!-- componente que permiste organizar elementos en pantalla se renderiza como table -->
+                     <f:facet name="header">
+                          <h:outputLabel value="Ingreso al sistema" />
+                     </f:facet>
+
+                     <h:outputLabel value="Usuario:" for="txt_nombre_usuario"/>
+                     <h:inputText id="txt_nombre_usuario" maxlength="10" value="#{loginBean.txt_nombre_usuario}"/>
+                     <h:outputLabel value="Clave:" for="txt_clave_usuario" />
+                     <h:inputSecret id="txt_clave_usuario" maxlength="10" value="#{loginBean.txt_clave_usuario}"/>
+
+                       <f:facet name="footer">
+                             <h:outputLabel value="Este sistema funciona en Mozilla 39 superior. Resolución 1024x768" />
+                     </f:facet>
+                </h:panelGrid>
+
+                 <h:panelGrid  columns="1">
+                     <h:commandButton value="Ingresar" action="#{loginBean.validarUsuario}"/>
+                 </h:panelGrid>
+            </h:form>
+       </center>
     </h:body>
 </html>
 
