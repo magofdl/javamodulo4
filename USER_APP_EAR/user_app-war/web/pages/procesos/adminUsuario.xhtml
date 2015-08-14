@@ -26,16 +26,22 @@ and open the template in the editor.
                         <h:outputLabel/>
                         <h:outputLabel/>
                         <h:outputLabel value="Nombre:"/>
-                        <h:inputText />
+                        <h:inputText required="true" requiredMessage="Nombre requerido"/>
                         <h:outputLabel value="Apellido:"/>
-                        <h:inputText />
+                        <h:inputText required="true" requiredMessage="Apellido requerido"/>
                         <h:outputLabel value="Clave:"/>
-                        <h:inputText  />
+                        <h:inputText  required="true" requiredMessage="Clave requerida"/>
                         <h:outputLabel  value="Cédula:"/>
-                        <h:inputText />
+                        <h:inputText required="true" requiredMessage="Cédula requerida" maxlength="10" validatorMessage="Solo se permiten números y deben ser 10 dígitos">
+                            <f:validateRegex pattern="\d{10,10}"/>
+                        </h:inputText>
                         <h:outputLabel value="Correo:"/>
-                        <h:inputText />
-
+                        <h:inputText required="true" requiredMessage="Correo requerido"/>
+                    </h:panelGrid>
+                    <h:panelGrid id="barra" columns="3">
+                        <h:commandButton id="submitGuardar" value="Guardar" action="#{adminUsuarioBean.guardarUsuario}" />
+                        <h:commandButton id="submitNuevo" value="Nuevo" action="#{adminUsuarioBean.nuevoUsuario}" />
+                        <h:commandButton id="submitEliminar" value="Eliminar" action="#{adminUsuarioBean.eliminarUsuario}" onclick="return confirm('Desea eliminar el usuario?')" />
                     </h:panelGrid>
                 </center>
             </fieldset>
@@ -68,8 +74,6 @@ and open the template in the editor.
                 </h:dataTable>
 
             </fieldset>
-
-
         </h:form>
     </h:body>
 </html>
