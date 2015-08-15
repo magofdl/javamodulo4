@@ -4,4 +4,13 @@
  * and open the template in the editor.
  */
 
+function confirmarEliminarUsuario(){
+    if (confirm('Esta seguro de eliminar?')){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 
