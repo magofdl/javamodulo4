@@ -15,6 +15,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import jsf.util.JsfUtil;
 
 /**
  *
@@ -40,7 +41,7 @@ public abstract class AbstractFacade<T> {
             while (iterator.hasNext()) {
                 ConstraintViolation<T> cv = iterator.next();
                 System.err.println(cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
-
+                JsfUtil.addErrorMessage(cv.getRootBeanClass().getSimpleName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
             }
             return true;
         } else {
