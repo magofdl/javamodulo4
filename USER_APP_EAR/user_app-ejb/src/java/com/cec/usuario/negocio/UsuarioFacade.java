@@ -55,7 +55,8 @@ public class UsuarioFacade {
      * @throws Exception
      */
     public String guardarUsuario(ErpUsuario erpUsuario) throws Exception {
-        return null;
+        manejador.persist(erpUsuario);//guarda automaticamente a la base con commit automatico
+        return "registro guardado correctamente";
     }
 
     /**
@@ -66,7 +67,8 @@ public class UsuarioFacade {
      * @throws Exception
      */
     public String actualizarUsuario(ErpUsuario erpUsuario) throws Exception {
-        return null;
+        manejador.merge(erpUsuario);//actualiza automaticamente a la base con commit automatico
+        return "registro actualizado correctamente";
     }
 
     /**
@@ -77,7 +79,8 @@ public class UsuarioFacade {
      * @throws Exception
      */
     public String eliminarUsuario(ErpUsuario erpUsuario) throws Exception {
-        return null;
+         manejador.remove(erpUsuario);//elimina automaticamente a la base con commit automatico al salir del metodo
+        return "registro eliminado correctamente";
     }
     
     public List<ErpUsuario> buscarTodos(){
