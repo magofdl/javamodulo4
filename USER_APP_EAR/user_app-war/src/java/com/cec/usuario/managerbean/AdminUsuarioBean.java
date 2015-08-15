@@ -95,9 +95,9 @@ public class AdminUsuarioBean {
     private void cargarRoles() {
         Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.INFO, "cargar usuarios");
         this.listRoles.clear();
-        adminRoles.buscarTodos().stream().forEach((rolTmp) -> {
+        for (UserRol rolTmp : adminRoles.buscarTodos()) {
             this.listRoles.add(new SelectItem(rolTmp.getRolId(), rolTmp.getRolNombre()));
-        });
+        }
         this.listaUsuarios = adminUsuario.buscarTodos();
     }
     
