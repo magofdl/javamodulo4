@@ -43,7 +43,7 @@ and open the template in the editor.
                     </h:panelGrid>
                     <h:panelGrid id="barra" columns="3">
                         <h:commandButton id="submitGuardar" value="Guardar" action="#{adminUsuarioBean.guardarUsuario}" />
-                        <h:commandButton id="submitNuevo" value="Nuevo" type="reset" />
+                        <h:commandButton id="submitNuevo" value="Nuevo" action="#{adminUsuarioBean.nuevoUsuario}" />
                         <h:commandButton id="submitEliminar" value="Eliminar" action="#{adminUsuarioBean.eliminarUsuario}" onclick="return confirmarEliminarUsuario()" />
                     </h:panelGrid>
                 </center>
