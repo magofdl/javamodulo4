@@ -18,6 +18,7 @@ and open the template in the editor.
             <fieldset>
                 <legend>Datos generales</legend>
                 <center>
+                     <h:inputHidden value="#{adminUsuarioBean.usuario.usuId}"/>
                     <h:panelGrid id="datosUsuario" columns="4">
                         <h:outputLabel value="Rol:"/>
                         <h:selectOneMenu value="#{adminUsuarioBean.idRol}">
@@ -44,12 +45,13 @@ and open the template in the editor.
                     <h:panelGrid id="barra" columns="3">
                         <h:commandButton id="submitGuardar" value="Guardar" action="#{adminUsuarioBean.guardarUsuario}" />
                         <h:commandButton id="submitNuevo" value="Nuevo" action="#{adminUsuarioBean.nuevoUsuario}" />
-                        <h:commandButton id="submitEliminar" value="Eliminar" action="#{adminUsuarioBean.eliminarUsuario}" onclick="return confirmarEliminarUsuario()" />
                     </h:panelGrid>
                 </center>
             </fieldset>
-
             <br></br>
+
+        </h:form>
+        <h:form id="formListaUsuario">
             <fieldset>
 
                 <legend>Lista usuarios</legend>
@@ -61,6 +63,11 @@ and open the template in the editor.
                         </f:facet>
                         <h:commandLink action="#{adminUsuarioBean.editarUsuario}">
                             <h:graphicImage library="img" name="iconEdit36x36.png"/>
+                            <f:param name="parametroUsuarioId" value="#{aliasFila.usuId}"></f:param>
+                        </h:commandLink>
+                        <h:commandLink action="#{adminUsuarioBean.eliminarUsuario}" onclick="return confirmarEliminarUsuario()">
+                            <h:graphicImage library="img" name="iconDelete36x36.png"/>
+                            <f:param name="parametroUsuarioId" value="#{aliasFila.usuId}"></f:param>
                         </h:commandLink>
                     </h:column>
 

@@ -5,6 +5,7 @@
  */
 package com.cec.usuario.managerbean;
 
+import com.cec.usuario.managerbean.util.FacesUtil;
 import com.cec.usuario.modelo.ErpUsuario;
 import com.cec.usuario.modelo.UserRol;
 import com.cec.usuario.negocio.RolFacade;
@@ -18,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import session.AbstractFacade;
 
@@ -35,21 +37,20 @@ public class AdminUsuarioBean {
     private Integer idRol;
     //segundo tipo de enlace porque son muchos campos
     private ErpUsuario usuario;
-    
-    
+
     @EJB
     private UsuarioFacade adminUsuario;
-    
+
     @EJB
     private UsuarioFacadeTest adminUsuarioTest;
-    
+
     @EJB
     private RolFacade adminRoles;
 
     public AdminUsuarioBean() {
         //siempre se deben iniciailizar las listas 
         this.listRoles = new ArrayList<>();
-        this.usuario= new ErpUsuario();
+        this.usuario = new ErpUsuario();
     }
 
     public List<SelectItem> getListRoles() {
@@ -83,18 +84,17 @@ public class AdminUsuarioBean {
     public void setIdRol(Integer idRol) {
         this.idRol = idRol;
     }
-    
-    
 
     /**
      * Metodo para cargar usuarios
      */
     private void cargarUsuarios() {
         Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.INFO, "cargar usuarios");
-        this.listaUsuarios = adminUsuario.buscarTodos();
+//        this.listaUsuarios = adminUsuario.buscarTodos();
+        this.listaUsuarios = adminUsuarioTest.findAll();
     }
 
-      /**
+    /**
      * Metodo para cargar roles
      */
     private void cargarRoles() {
@@ -105,27 +105,34 @@ public class AdminUsuarioBean {
         }
         this.listaUsuarios = adminUsuario.buscarTodos();
     }
-    
+
     /**
      * Metodo para guardar usuarios
-     * @return 
+     *
+     * @return
      */
     public String guardarUsuario() {
         try {
             Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.INFO, "guardar usuario");
-            
+
             //
-            UserRol userRol=adminRoles.buscarRolPorId(this.idRol);
+            UserRol userRol = adminRoles.buscarRolPorId(this.idRol);
             this.usuario.setUserRolRolId(userRol);
-//            adminUsuario.guardarUsuario(this.usuario);
+
             
-            adminUsuarioTest.create(this.usuario);
-            
-            String mensaje="Usuario guardado correctamente";
+            String mensaje = "Usuario";
+            if (this.usuario.getUsuId() != null) {//el id es autogenerado por la bdd
+                adminUsuarioTest.edit(this.usuario);//actualiza
+                mensaje = "Usuario actualizado correctamente";
+            } else {
+                adminUsuarioTest.create(this.usuario);//guarda
+                 mensaje = "Usuario guardado correctamente";
+            }
+            nuevoUsuario();
             //actualizar la lista de usuarios
             cargarUsuarios();
             //mostrar el mensaje
-            
+            FacesUtil.addMessage(1, mensaje);
             return null;
         } catch (Exception ex) {
             Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -135,7 +142,8 @@ public class AdminUsuarioBean {
 
     /**
      * Metodo para nuevo usuario
-     * @return 
+     *
+     * @return
      */
     public String nuevoUsuario() {
         Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.INFO, "nuevo usuario");
@@ -146,30 +154,43 @@ public class AdminUsuarioBean {
 
     /**
      * Metodo para eliminar usuarios
-     * @return 
+     *
+     * @return
      */
     public String eliminarUsuario() {
-         try {
-            Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.INFO, "eliminar usuario");
-            adminUsuario.eliminarUsuario(this.usuario);
-            String mensaje="Usuario eliminado correctamente";
-            //actualizar la lista de usuarios
+        Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.INFO, "eliminar usuario");
+        //recuperar parametro
+        try {
+            Integer idUsuario = Integer.parseInt(FacesUtil.recuperarParametro("parametroUsuarioId").toString());
+            this.usuario = adminUsuarioTest.find(idUsuario);
+            adminUsuarioTest.remove(this.usuario);
+            FacesUtil.addMessage(1, "usuario eliminado correctamente");
             cargarUsuarios();
-            //mostrar el mensaje
-            
-            return null;
-        } catch (Exception ex) {
-            Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception exception) {
+            FacesUtil.addMessage(3, "Error al eliminar el usuario:" + exception.getMessage());
         }
         return null;
     }
-    
-      /**
+
+    /**
      * Metodo para editar/cargar usuario
-     * @return 
+     *
+     * @return
      */
     public String editarUsuario() {
-        Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.INFO, "nuevo usuario");
+        Logger.getLogger(AdminUsuarioBean.class.getName()).log(Level.INFO, "editar usuario");
+        //recuperar parametro
+        try {
+            Integer idUsuario = Integer.parseInt(FacesUtil.recuperarParametro("parametroUsuarioId").toString());
+            this.usuario = adminUsuarioTest.find(idUsuario);
+            this.idRol=this.usuario.getUserRolRolId().getRolId();
+            
+            //cuando se usa el immneiadte
+//            FacesContext.getCurrentInstance().getViewRoot().findComponent("formusu"+"txt_nombre_usuario");
+            
+        } catch (Exception exception) {
+            FacesUtil.addMessage(3, "Error al editar el usuario: "+exception.getMessage());
+        }
         return null;
     }
 
