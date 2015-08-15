@@ -9,6 +9,7 @@ import com.cec.usuario.modelo.ErpUsuario;
 import com.cec.usuario.modelo.UserRol;
 import com.cec.usuario.negocio.RolFacade;
 import com.cec.usuario.negocio.UsuarioFacade;
+import com.cec.usuario.negocio.UsuarioFacadeTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
+import session.AbstractFacade;
 
 /**
  * Clasea pra adminsitrar la pantalla de admin usaurio
@@ -37,6 +39,9 @@ public class AdminUsuarioBean {
     
     @EJB
     private UsuarioFacade adminUsuario;
+    
+    @EJB
+    private UsuarioFacadeTest adminUsuarioTest;
     
     @EJB
     private RolFacade adminRoles;
@@ -112,7 +117,9 @@ public class AdminUsuarioBean {
             //
             UserRol userRol=adminRoles.buscarRolPorId(this.idRol);
             this.usuario.setUserRolRolId(userRol);
-            adminUsuario.guardarUsuario(this.usuario);
+//            adminUsuario.guardarUsuario(this.usuario);
+            
+            adminUsuarioTest.create(this.usuario);
             
             String mensaje="Usuario guardado correctamente";
             //actualizar la lista de usuarios

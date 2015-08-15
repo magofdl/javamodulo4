@@ -47,6 +47,10 @@ public class UsuarioFacade {
         return erpUsuario;
     }
 
+    
+    
+    
+    
     /**
      * Metodo para guardar un usuario
      *
